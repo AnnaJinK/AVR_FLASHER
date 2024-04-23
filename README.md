@@ -4,7 +4,7 @@
 
 SD 카드에 저장된 펌웨어를 타겟 AVR 장치로 플래싱하는 Standalone AVR Programmer 입니다.  
 이 장치는 PC 가 필요없으며 간편하게 버튼 클릭만으로 타겟 장치의 IC 를 판별하여 펌웨어를 쓸수 있습니다.  
-또한 ATtiny 부터 ATmega328PB 및 ATmega64rfr2 등 ATmel 사의 다양한 AVR 을 지원합니다.
+또한 ATtiny 부터 ATmega328PB 및 ATmega2560 등 ATmel 사의 다양한 AVR 을 지원합니다.
 
 본 프로젝트는 [Gammon Forum](http://www.gammon.com.au/forum/?id=11638)의 내용을 바탕으로 제작되었습니다.
 
