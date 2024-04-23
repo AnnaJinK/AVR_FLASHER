@@ -1,8 +1,6 @@
 
 #include <Arduino.h>
 #include <SDFat.h>
-#include <SPI.h>
-#include <Wire.h>
 #include <sdios.h>
 
 #define DEBUG false  // 디버그 모드
