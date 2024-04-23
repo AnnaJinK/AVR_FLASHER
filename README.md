@@ -1,6 +1,6 @@
 ## What is this?
 
-<img src="PCB/img/1.png" width="35%"/>
+<img src="PCB/img/1.png" width="60%"/>
 
 SD 카드에 저장된 펌웨어를 타겟 AVR 장치로 플래싱하는 Standalone AVR Programmer 입니다.  
 이 장치는 PC 가 필요없으며 간편하게 버튼 클릭만으로 타겟 장치의 IC 를 판별하여 펌웨어를 쓸수 있습니다.  
@@ -19,7 +19,7 @@ ArduinoIDE 를 사용하는 경우 `Ctrl + Alt + S` 를 눌러 컴파일된 바�
 본 프로젝트는 ATmega328P 를 사용하여 제작되었습니다.  
 필요한 경우 ATmega2560 나 ATmega1284P 같은 다른 IC 를 사용해도 됩니다.
 
-<img src="PCB/img/3.png" width="20%"/>  
+<img src="PCB/img/3.png" width="40%"/>  
   
 USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내장시 USB 를 통해 펌웨어를 쉽게 수정할 수 있습니다.  
 부트로더가 내장되지 않은 IC 를 사용하는 경우 PCB 에 실장되는 IC를 위한 ICSP 가 없기 때문에 사전에 프로그램을 다운받는 것이 좋습니다.  
