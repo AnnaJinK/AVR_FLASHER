@@ -1,13 +1,36 @@
 ## What is this?
+
+<img src="PCB/img/1.png" width="35%"/>
+
 SD 카드에 저장된 펌웨어를 타겟 AVR 장치로 플래싱하는 Standalone AVR Programmer 입니다.  
-ATtiny 부터 ATmega328PB 및 ATmega64rfr2 등 ATmel 사의 다양한 AVR 을 지원합니다.  
-[nickgammon](https://github.com/nickgammon/arduino_sketches) 와 [Gammon Forum](http://www.gammon.com.au/forum/?id=11638) 의 내용을 바탕으로 제작되었습니다.
+이 장치는 PC 가 필요없으며 간편하게 버튼 클릭만으로 타겟 장치의 IC 를 판별하여 펌웨어를 쓸수 있습니다.  
+또한 ATtiny 부터 ATmega328PB 및 ATmega64rfr2 등 ATmel 사의 다양한 AVR 을 지원합니다.
+
+본 프로젝트는 [Gammon Forum](http://www.gammon.com.au/forum/?id=11638)의 내용을 바탕으로 제작되었습니다.
 
 ## Introduction
-빌드된 펌웨어파일 firmaware.hex SD 카드에 옮겨줍니다.
-platformIO 에서 빌드된 펌웨어는 ```.pio/build``` 폴더에 생성됩니다.
+
+빌드된 펌웨어 파일 `firmaware.hex` 을 SD 카드에 옮겨준 후 장치에 삽입하고 버튼 만 누르면 됩니다.  
+PlatformIO 에서 빌드된 펌웨어는 `firmaware.hex` 이름으로 `.pio/build` 폴더에 생성됩니다.  
+ArduinoIDE 를 사용하는 경우 `Ctrl + Alt + S` 를 눌러 컴파일된 바이너리 파일 생성 후 `firmaware.hex` 로 이름을 바꿔서 사용하면 됩니다.
+
+### Inside
+
+본 프로젝트는 ATmega328P 를 사용하여 제작되었습니다.  
+필요한 경우 ATmega2560 나 ATmega1284P 같은 다른 IC 를 사용해도 됩니다.
+
+<img src="PCB/img/3.png" width="20%"/>  
+  
+USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내장시 USB 를 통해 펌웨어를 쉽게 수정할 수 있습니다.  
+부트로더가 내장되지 않은 IC 를 사용하는 경우 PCB 에 실장되는 IC를 위한 ICSP 가 없기 때문에 사전에 프로그램을 다운받는 것이 좋습니다.  
+저렴하고 구하기쉬운 부품들로 구성하였기 때문에 누구나 쉽게만들 수 있습니다.
+
+자세한 내용은 [회로도](PCB/Schematic.pdf)를 참조하세요.
+
+회로도와 부품 배치 데이터 거버파일은 PCB 폴더에 있습니다.
 
 ### Available IC
+
 ```c
 // Atmega 칩들의 시그니처 코드입니다. 이 데이터들을 기준으로 타겟 칩을 인식합니다.
 const signatureType signatures[] PROGMEM = {

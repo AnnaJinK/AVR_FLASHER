@@ -1,0 +1,30 @@
+### Footprint positions - created on Tue Apr 23 21:24:35 2024 ###
+### Printed by KiCad version 7.0.2
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                 Package                                            PosX       PosY       Rot  Side
+C1        100nF               C_0603_1608Metric                              119.5000   -95.8875  180.0000  top
+C2        100nF               C_0603_1608Metric                              110.9250   -89.1250   90.0000  top
+C3        100nF               C_0603_1608Metric                              112.6000   -89.1250  -90.0000  top
+C4        10uF                CP_EIA-2012-12_Kemet-R                         114.4000  -103.1125   90.0000  top
+C5        100nF               C_0603_1608Metric                              116.7500  -103.1125  -90.0000  top
+C6        10uF                C_0603_1608Metric                              119.5000   -99.3875  180.0000  top
+C8        100nF               C_0603_1608Metric                              119.5000   -97.6375    0.0000  top
+D2        LED_Tact_12x12      LED_TACT_12x12_mm_LED                          132.5000   -86.0000  180.0000  top
+D6        LED_RAGB            LED_D5.0mm-4_RGB                               113.6500   -69.7500  180.0000  top
+F1        FUSE                Fuse_0805_2012Metric                           119.5000  -108.4375   90.0000  top
+J2        TARGET              PinHeader_Box_2x05_P2.54mm_Horizontal          120.9200   -68.5400   90.0000  top
+J3        Micro_SD_Card_Det2  microSD_HC_Hirose_DM3AT-SF-PEJM5               137.2200  -104.7850    0.0000  top
+J5        USB_C16PIN          KH-TYPE-C-16P                                  112.0000  -107.2000    0.0000  top
+R1        200R                R_0603_1608Metric                              111.5000   -74.5000   90.0000  top
+R2        200R                R_0603_1608Metric                              110.0000   -74.5000   90.0000  top
+R3        200R                R_0603_1608Metric                              108.5000   -74.5000   90.0000  top
+R4        10K                 R_0603_1608Metric                              109.2500   -89.1250   90.0000  top
+R5        1M                  R_0603_1608Metric                              116.0500   -88.0000  180.0000  top
+R12       200R                R_0603_1608Metric                              138.0700   -94.7500    0.0000  top
+U1        CH340C              SOIC-16_3.9x9.9mm_P1.27mm                      112.1000   -96.3000  -90.0000  top
+U2        ATmega328P-A        TQFP-32_7x7mm_P0.8mm                           113.0000   -81.5000   90.0000  top
+U3        NCP603_SOT23-5      SOT-23-5                                       119.5000  -102.5000   90.0000  top
+U4        4050                SOIC-16_3.9x9.9mm_P1.27mm                      125.2500  -104.7500    0.0000  top
+Y1        16Mhz               Resonator_SMD_Murata_CSTxExxV-3Pin_3.0x1.1mm   116.1000   -90.3000    0.0000  top
+## End
