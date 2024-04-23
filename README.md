@@ -29,6 +29,10 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 
 회로도와 부품 배치 데이터 거버파일은 PCB 폴더에 있습니다.
 
+### Video Link
+[![Video](https://img.youtube.com/vi/CiSJQsz9dUg/0.jpg)](https://youtu.be/CiSJQsz9dUg)
+
+
 ### Available IC
 
 ```c
