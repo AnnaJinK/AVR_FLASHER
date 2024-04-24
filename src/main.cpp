@@ -1005,15 +1005,16 @@ bool updateFuses(const bool writeIt) {
     }  // if not address 0
 
     if (writeIt) {
-        // writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
-        String name = currentSignature.desc;
-        if (name.indexOf("ATmega328PB", 0) != -1) {
-            debugln(currentSignature.desc);
-            writeFuse(0xFF, fuseCommands[0]);
-            writeFuse(0xD6, fuseCommands[1]);
-            writeFuse(0xF5, fuseCommands[2]);
-            writeFuse(0xCF, fuseCommands[3]);
-        }
+        writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
+        /*
+       String name = currentSignature.desc;
+       if (name.indexOf("ATmega328P", 0) != -1) {
+           debugln(currentSignature.desc);
+           writeFuse(0xFF, fuseCommands[0]);
+           writeFuse(0xD6, fuseCommands[1]);
+           writeFuse(0xF5, fuseCommands[2]);
+           writeFuse(0xFF, fuseCommands[3]);
+       }*/
     }
 
     return false;
