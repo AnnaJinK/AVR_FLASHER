@@ -3,7 +3,7 @@
 #include <SDFat.h>
 #include <sdios.h>
 
-#define DEBUG false  // 디버그 모드
+#define DEBUG true  // 디버그 모드
 
 #if DEBUG == true
 #define debug(...) Serial.print(__VA_ARGS__)
@@ -172,7 +172,7 @@ const byte BB_MOSI_BIT = 0;
 #endif
 
 // 프로그래밍 속도를 제어 값을 너무 줄이면 프로그래밍에 실패할 가능성이있습니다
-const byte BB_DELAY_MICROSECONDS = 4;
+const byte BB_DELAY_MICROSECONDS = 6;
 
 // 타겟 보드 리셋에 사용한 핀
 const byte RESET = MSPIM_SS;
@@ -352,7 +352,7 @@ void blink(const int whichLED1, const int whichLED2, const byte times = 1, const
             if (whichLED2 != noLED) digitalWrite(whichLED2, LOW);
             delay(interval);
         }  // end of for loop
-        if (i < (repeat - 1)) delay(50);
+        if (i < (repeat - 1)) delay(10);
     }  // end of repeating the sequence
 }  // end of blink
 
@@ -665,54 +665,6 @@ unsigned int lineCount;
 
 // returns true if error, false if OK
 bool processLine(const char *pLine, const byte action) {
-    if (*pLine == 'F') {
-        pLine++;
-        // Get fuse type and value and program fuse
-
-        byte fuseN = 20;
-        byte fuseVal = 6;
-        byte ATmega328PB_fuse[4] = {0xFF, 0xD6, 0xF5, 0xCF};
-
-        switch (*pLine++) {
-            case 'L':
-                fuseN = lowFuse;
-                break;
-            case 'H':
-                fuseN = highFuse;
-                break;
-            case 'E':
-                fuseN = extFuse;
-                break;
-            case 'B':
-                fuseN = lockByte;
-                break;
-            default:
-                ShowMessage(MSG_FUSE_PROBLEM);  // Wrong Fuse code (L:Low; H=High; E=Extended; B=Lockbyte)
-                return true;
-        }
-
-        switch (action) {
-            case writeToFlash: {
-                // Get fuse value and write
-                if (!hexConv(pLine, fuseVal)) {
-                    String name = currentSignature.desc;
-                    if (name.indexOf("ATmega328PB", 0) != -1) {
-                        debugln(currentSignature.desc);
-                        writeFuse(ATmega328PB_fuse[fuseN], fuseCommands[fuseN]);
-                    } else {
-                        writeFuse(fuseVal, fuseCommands[fuseN]);
-                    }
-                    return false;
-                } else {
-                    ShowMessage(MSG_FUSE_PROBLEM);
-                    return true;
-                }
-            }
-            default:
-                return false;
-        }
-    }
-
     if (*pLine++ != ':') {
         ShowMessage(MSG_LINE_DOES_NOT_START_WITH_COLON);
         return true;  // error
@@ -1124,7 +1076,7 @@ bool writeFlashContents() {
     digitalWrite(readyLED, HIGH);
 
     // verify 프로그래밍 시간을 단축하길 원하면 제거항수 있습니다.
-    if (readHexFile(name, verifyFlash)) return false;
+    // if (readHexFile(name, verifyFlash)) return false;
     // now fix up fuses so we can boot
     if (errors == 0) updateFuses(true);
 
