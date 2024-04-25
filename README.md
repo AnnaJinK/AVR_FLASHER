@@ -65,7 +65,7 @@ const byte lock_bits = 0xFF;
 ```
 ```c
 // File : src/main.cpp
-// platformio.ini 에서 정의하였다면 하지않아도됨
+// platformio.ini 에서 정의하였다면 하지 않아도 됨
 #define CUSTOM_FUSE true 
 #define ATmega32U4
 ```
