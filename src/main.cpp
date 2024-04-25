@@ -1024,7 +1024,7 @@ bool updateFuses(const bool writeIt) {
 
     }  // if not address 0
 
-    if (writeIt) {  
+    if (writeIt) {
         String name = currentSignature.desc;
 #if CUSTOM_FUSE == true  // 커스텀 퓨즈 비트설정
         debugln(name);
@@ -1033,6 +1033,8 @@ bool updateFuses(const bool writeIt) {
             writeFuse(custom_fuses[highFuse], fuseCommands[highFuse]);
             writeFuse(custom_fuses[extFuse], fuseCommands[extFuse]);
             writeFuse(custom_fuses[lockByte], fuseCommands[lockByte]);
+        } else {
+            writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
         }
 #elif
         writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
