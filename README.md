@@ -32,8 +32,45 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 ### Video Link
 [![Video](https://img.youtube.com/vi/CiSJQsz9dUg/0.jpg)](https://youtu.be/CiSJQsz9dUg)
 
+### CUSTOM FUSE
+CUSTOM_FUSE 활성화 
+```c
+// File : platformio.ini
+// @PlatformIO
 
-### Available IC
+; 커스텀 퓨즈 세팅을 사용할경우 true 사전 설정된 퓨즈세팅을 사용할 경우 false
+build_flags = 
+  -D CUSTOM_FUSE=true 
+```
+```c
+// @ArduinoIDE
+; 커스텀 퓨즈 세팅을 사용할경우 true 사전 설정된 퓨즈세팅을 사용할 경우 false
+#define CUSTOM_FUSE true
+```
+
+CUSTOM_FUSE 설정
+```c
+// File : src/fuse.h
+/*
+ * IC 와 퓨즈 정보를 아래 양식에 맞게 작성하여 사용합니다.
+ * Available IC Table 에 정의된 이름과 동일하게 정의해야 합니다. (대소분자 구분)
+ */
+#ifdef ATmega32U4
+#define AVR_CORE "ATmega32U4"
+const byte low_fuses = 0xFF;
+const byte high_fuses = 0xD8;
+const byte extended_fuses = 0xCB;
+const byte lock_bits = 0xFF;
+#endif
+```
+```c
+// File : src/main.cpp
+// platformio.ini 에서 정의하였다면 하지않아도됨
+#define CUSTOM_FUSE true 
+#define ATmega32U4
+```
+
+### Available IC Table
 
 ```c
 // Atmega 칩들의 시그니처 코드입니다. 이 데이터들을 기준으로 타겟 칩을 인식합니다.
