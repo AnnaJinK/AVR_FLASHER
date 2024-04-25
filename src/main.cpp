@@ -1036,7 +1036,7 @@ bool updateFuses(const bool writeIt) {
         } else {
             writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
         }
-#elif
+#elif CUSTOM_FUSE == false
         writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
 #endif
     }
