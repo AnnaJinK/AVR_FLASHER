@@ -3,7 +3,22 @@
 #include <SDFat.h>
 #include <sdios.h>
 
-#define DEBUG true  // 디버그 모드
+/**
+ * @brief CUSTOM_FUSE 를 설정합니다.
+ * 커스텀 퓨즈 세팅을 사용할경우 true
+ * 사전 설정된 퓨즈세팅을 사용할 경우 false
+ * #define CUSTOM_FUSE
+ */
+#if CUSTOM_FUSE == true
+#define ATmega32U4  // 커스텀 퓨즈세팅을 사용할 IC 를 정의합니다.
+#include "fuse.h"
+byte custom_fuses[5] = {
+    low_fuses,
+    high_fuses,
+    extended_fuses,
+    lock_bits,
+};
+#endif
 
 #if DEBUG == true
 #define debug(...) Serial.print(__VA_ARGS__)
@@ -195,6 +210,9 @@ SdFat sd;
 
 // copy of fuses/lock bytes found for this processor
 byte fuses[5];
+
+// 커스텀 세팅 파일로부터 퓨즈비트와  IC 정보를 읽어옵니다.
+byte custom_fuse[5];
 
 // meaning of positions in above array
 enum { lowFuse, highFuse, extFuse, lockByte, calibrationByte };
@@ -940,7 +958,9 @@ void getFuseBytes() {
     fuses[extFuse] = program(readExtendedFuseByte, readExtendedFuseByteArg2);
     fuses[lockByte] = program(readLockByte, readLockByteArg2);
     fuses[calibrationByte] = program(readCalibrationByte);
-
+#if CUSTOM_FUSE == true
+    custom_fuses[calibrationByte] = program(readCalibrationByte);
+#endif
     debug(F("LFuse = 0x"));
     debugln(fuses[lowFuse], HEX);
     debug(F("HFuse = 0x"));
@@ -1004,17 +1024,19 @@ bool updateFuses(const bool writeIt) {
 
     }  // if not address 0
 
-    if (writeIt) {
+    if (writeIt) {  
+        String name = currentSignature.desc;
+#if CUSTOM_FUSE == true  // 커스텀 퓨즈 비트설정
+        debugln(name);
+        if (name.indexOf(AVR_CORE, 0) != -1) {
+            writeFuse(custom_fuses[lowFuse], fuseCommands[lowFuse]);
+            writeFuse(custom_fuses[highFuse], fuseCommands[highFuse]);
+            writeFuse(custom_fuses[extFuse], fuseCommands[extFuse]);
+            writeFuse(custom_fuses[lockByte], fuseCommands[lockByte]);
+        }
+#elif
         writeFuse(fuses[fusenumber], fuseCommands[fusenumber]);
-        /*
-       String name = currentSignature.desc;
-       if (name.indexOf("ATmega328P", 0) != -1) {
-           debugln(currentSignature.desc);
-           writeFuse(0xFF, fuseCommands[0]);
-           writeFuse(0xD6, fuseCommands[1]);
-           writeFuse(0xF5, fuseCommands[2]);
-           writeFuse(0xFF, fuseCommands[3]);
-       }*/
+#endif
     }
 
     return false;
@@ -1064,7 +1086,6 @@ bool chooseInputFile() {
 // returns true if OK, false on error
 bool writeFlashContents() {
     errors = 0;
-
     if (chooseInputFile()) return false;
 
     // ensure back in programming mode
