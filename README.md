@@ -88,13 +88,6 @@ const byte lock_bits = 0xFF;
 #endif
 ```
 
-```c
-// File : src/main.cpp
-// platformio.ini 에서 정의하였다면 하지 않아도 됨
-#define CUSTOM_FUSE true
-#define ATmega32U4
-```
-
 ### SD 카드의 `config.ini` 파일을 사용한 CUSTOM_FUSE 설정
 
 SD 에 저장된 설정값을 사용하는 방법은 메모리를 조금 더 사용합니다.  
