@@ -71,7 +71,7 @@ build_flags =
   -D SERIAL_DISABLE=true
 ```
 
-fuse.h 를 사용한 방법은 메모리를 더 적게 사용하지만 장치를 매번 다시 컴파일 해줘야하는 단점이 있습니다.
+`fuse.h` 를 사용한 방법은 메모리를 더 적게 사용하지만 장치를 매번 다시 컴파일 해줘야하는 단점이 있습니다.
 
 ```c
 // File : src/fuse.h
@@ -86,6 +86,25 @@ const byte high_fuses = 0xD8;
 const byte extended_fuses = 0xCB;
 const byte lock_bits = 0xFF;
 #endif
+```
+
+`setting.h` 에 본인이 사용할 IC 를 정의합니다.
+```c
+// File : src/setting.h
+#if CUSTOM_FUSE == 1
+#define ATmega32U4  // 커스텀 퓨즈세팅을 사용할 IC 를 정의합니다.
+#include "fuse.h"
+byte custom_fuses[5] = {
+    low_fuses,
+    high_fuses,
+    extended_fuses,
+    lock_bits,
+};
+#elif CUSTOM_FUSE == 2
+String AVR_CORE = "";
+byte custom_fuses_sd[5];
+#endif
+
 ```
 
 ### SD 카드의 `config.ini` 파일을 사용한 CUSTOM_FUSE 설정
