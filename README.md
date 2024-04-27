@@ -33,7 +33,7 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 
 [![Video](https://img.youtube.com/vi/CiSJQsz9dUg/0.jpg)](https://youtu.be/CiSJQsz9dUg)
 
-## CUSTOM FUSE 설정하기
+## CUSTOM FUSE
 
 **이 기능은 사용시 주의가 필요합니다.**  
 **CUSTOM FUSE 는 잘못 사용하면 IC 를 더 이상 사용할 수 없는 상태가 될 수 있습니다.**  
