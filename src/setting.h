@@ -24,8 +24,8 @@
 
 /**
  * @brief CUSTOM_FUSE 를 설정합니다.
- * 커스텀 퓨즈 세팅을 사용할경우 true
- * 사전 설정된 퓨즈세팅을 사용할 경우 false
+ * 커스텀 퓨즈 세팅을 사용할경우 1, 2
+ * 사전 설정된 퓨즈세팅을 사용할 경우 0
  * #define CUSTOM_FUSE
  */
 #if CUSTOM_FUSE == 1
