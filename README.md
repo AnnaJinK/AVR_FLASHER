@@ -30,25 +30,32 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 회로도와 부품 배치 데이터, 케이스 3D 모델, 거버파일은 PCB 폴더에 있습니다.
 
 ### Video Link
+
 [![Video](https://img.youtube.com/vi/CiSJQsz9dUg/0.jpg)](https://youtu.be/CiSJQsz9dUg)
 
 ### CUSTOM FUSE
-CUSTOM_FUSE 활성화 
+
+CUSTOM_FUSE 활성화  
+`CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입니다.
+
 ```c
 // File : platformio.ini
 // @PlatformIO
 
-; 커스텀 퓨즈 세팅을 사용할경우 true 사전 설정된 퓨즈세팅을 사용할 경우 false
-build_flags = 
-  -D CUSTOM_FUSE=true 
-```
-```c
-// @ArduinoIDE
-; 커스텀 퓨즈 세팅을 사용할경우 true 사전 설정된 퓨즈세팅을 사용할 경우 false
-#define CUSTOM_FUSE true
+build_flags =
+; CUSTOM_FUSE 0 타겟 장치의 기본 세팅값 사용,
+; CUSTOM_FUSE 1 헤더파일에 저장된 퓨즈세팅 사용,
+; CUSTOM_FUSE 2 SD 카드의 config.ini 파일로 부터 퓨즈 세팅 읽어옴
+  -D CUSTOM_FUSE=2
+; DEBUG_LV 0 디버그 모드 끔, 메모리 확보를 위해 끄는 것을 권장합니다.
+; DEBUG_LV 1 정의된 모든 동작을 모니터링,
+; DEBUG_LV 2 타겟 IC 식별과 SD 카드 퓨즈 세팅 동작 위주
+  -D DEBUG_LV=0
+  -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
 ```
 
-CUSTOM_FUSE 설정
+### `fuse.h` 파일을 사용한 CUSTOM_FUSE 설정
+
 ```c
 // File : src/fuse.h
 /*
@@ -63,11 +70,24 @@ const byte extended_fuses = 0xCB;
 const byte lock_bits = 0xFF;
 #endif
 ```
+
 ```c
 // File : src/main.cpp
 // platformio.ini 에서 정의하였다면 하지 않아도 됨
-#define CUSTOM_FUSE true 
+#define CUSTOM_FUSE true
 #define ATmega32U4
+```
+
+### SD 카드의`config.ini` 파일을 사용한 CUSTOM_FUSE 설정
+
+다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
+<img src="PCB/img/4.png" width="50%"/>  
+파일 내용음 다음과 같습니다.  
+':' 를 구분 자로 사용하며 앞쪽에는 IC 의 이름 뒷 쪽에는 Fuse 설정을 적습니다.  
+Fuse 의 순서는 왼쪽 부터 Low/High/Extended/Lockbits 입니다.
+
+```
+ATmega328P:FFDAFDFF
 ```
 
 ### Available IC Table
