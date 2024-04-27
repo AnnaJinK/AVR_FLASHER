@@ -95,7 +95,7 @@ SD 에 저장된 설정값을 사용하는 방법은 메모리를 조금 더 사
 먼저 다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
 <img src="PCB/img/4.png" width="80%"/>
 
-`config.ini` 파일 내용은 다음과 같이 작성합니다.
+`config.ini` 파일 내용은 다음과 같은 양식으로 작성합니다.
 
 ```
 ATmega328P:FFDAFDFF
