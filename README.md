@@ -39,8 +39,7 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 **CUSTOM FUSE 는 잘못 사용하면 IC 를 더 이상 사용할 수 없는 상태가 될 수 있습니다.**  
 퓨즈 설정에 익숙하지 않다면 [퓨즈 계산기](https://www.engbedded.com/fusecalc/) 를 이용하는 것이 좋습니다.
 
-`platformio.ini` 애서 CUSTOM_FUSE 활성화 방법입니다.  
-`ArduinoIDE` 를 사용하는 경우 `#define` 으로 스케치 상단에 정의합니다.  
+`platformio.ini` 애서 CUSTOM_FUSE 활성화 방법입니다. (`ArduinoIDE` 를 사용하는 경우 `#define` 으로 스케치 상단에 정의합니다.)  
 `CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입니다.
 
 ```c
