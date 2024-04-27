@@ -60,7 +60,7 @@ build_flags =
 
 ### `fuse.h` 파일을 사용한 CUSTOM_FUSE 설정
 
-먼저 `platformio.ini` 의 내용을 다음과 같이 수정합니다.
+`platformio.ini` 의 내용을 다음과 같이 수정 한 후 AVR_FLASHER 에 업로드합니다.
 ```c
 // File : platformio.ini
 // @PlatformIO
@@ -104,11 +104,28 @@ const byte lock_bits = 0xFF;
 ### SD 카드의 `config.ini` 파일을 사용한 CUSTOM_FUSE 설정
 
 SD 에 저장된 설정값을 사용하는 방법은 메모리를 조금 더 사용합니다.  
-장치의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어주기만 하면 되기 때문에 좀 더 편리합니다.  
+AVR_FLASHER의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어주기만 하면 되기 때문에 좀 더 편리합니다.  
 단점으로 `DEBUG_LV 1` 과 함께 사용시 시스템 메모리가 2KB 이하인 IC는 메모리 부족으로 IC 가 리셋 될수 있습니다.  
 따라서 CUSTOM FUSE 설정에 SD 카드 모드 사용시 `DEBUG_LV 0` 또는 `DEBUG_LV 2` 로 설정해야 합니다.
 
-먼저 다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
+먼저 `platformio.ini` 의 내용을 다음과 같이 수정하여 AVR_FLASHER 에 업로드합니다
+```c
+// File : platformio.ini
+// @PlatformIO
+
+build_flags =
+; CUSTOM_FUSE 0 타겟 장치의 기본 세팅값 사용,
+; CUSTOM_FUSE 1 fuse.h 파일에 저장된 퓨즈세팅 사용,
+; CUSTOM_FUSE 2 SD 카드의 config.ini 파일로 부터 퓨즈 세팅 읽어옴
+  -D CUSTOM_FUSE=2
+; DEBUG_LV 0 디버그 모드 끔, 메모리 확보를 위해 끄는 것을 권장합니다.
+; DEBUG_LV 1 정의된 모든 동작을 모니터링,
+; DEBUG_LV 2 타겟 IC 식별과 SD 카드 퓨즈 세팅 동작 위주
+  -D DEBUG_LV=0
+  -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
+```
+
+그 다음 SD 카드에 다음과 같이 `config.ini` 파일을 생성합니다.  
 <img src="PCB/img/4.png" width="80%"/>
 
 `config.ini` 파일 내용은 다음과 같은 양식으로 작성합니다.
