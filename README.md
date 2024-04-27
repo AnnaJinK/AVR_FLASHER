@@ -12,7 +12,7 @@ SD 카드에 저장된 펌웨어를 타겟 AVR 장치로 플래싱하는 Standal
 
 빌드된 펌웨어 파일 `firmaware.hex` 을 SD 카드에 옮겨준 후 장치에 삽입하고 버튼 만 누르면 됩니다.  
 PlatformIO 에서 빌드된 펌웨어는 `firmaware.hex` 이름으로 `.pio/build` 폴더에 생성됩니다.  
-ArduinoIDE 를 사용하는 경우 `Ctrl + Alt + S` 를 눌러 컴파일된 바이너리 파일 생성 후 `firmaware.hex` 로 이름을 바꿔서 사용하면 됩니다.
+ArduinoIDE 를 사용하는 경우 `Ctrl + Alt + S` 로 컴파일된 바이너리 파일 생성 후 `firmaware.hex` 로 이름을 바꿔서 사용하면 됩니다.
 
 ### Inside
 
@@ -23,7 +23,7 @@ PCB는 ATmega328P 제품을 사용하여 제작되었습니다.
   
 USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내장시 USB 를 통해 펌웨어를 쉽게 수정할 수 있습니다.  
 부트로더가 내장되지 않은 IC 를 사용하는 경우 PCB 에 실장되는 IC를 위한 ICSP 가 없기 때문에 사전에 프로그램을 다운받는 것이 좋습니다.  
-저렴하고 구하기쉬운 최소한의 부품들로 구성하였기 때문에 누구나 쉽게만들 수 있습니다.
+저렴하고 구하기쉬운 최소한의 부품들로 구성하였기 때문에 쉽게만들 수 있습니다.
 
 자세한 내용은 [회로도](PCB/Schematic.pdf)를 참조하세요.
 
@@ -39,21 +39,20 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 **CUSTOM FUSE 는 잘못 사용하면 IC 를 더 이상 사용할 수 없는 상태가 될 수 있습니다.**  
 퓨즈 설정에 익숙하지 않다면 [퓨즈 계산기](https://www.engbedded.com/fusecalc/) 를 이용하는 것이 좋습니다.
 
-`platformio.ini` 애서 CUSTOM_FUSE 활성화 방법입니다.  
-`ArduinoIDE` 를 사용하는 경우 `#define` 으로 스케치 상단에 정의합니다.  
-`CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입니다.
+`platformio.ini` 애서 CUSTOM_FUSE 활성화 방법입니다. (`ArduinoIDE` 는 스케치 상단에 정의합니다.)  
+SD 카드를 사용하는 `CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입니다.
 
 ```c
 // File : platformio.ini
 // @PlatformIO
 
 build_flags =
-; CUSTOM_FUSE 0 타겟 장치의 기본 세팅값 사용,
-; CUSTOM_FUSE 1 fuse.h 파일에 저장된 퓨즈세팅 사용,
+; CUSTOM_FUSE 0 CUSTOM_FUSE 사용안함, 타겟 장치의 기본 세팅값 사용
+; CUSTOM_FUSE 1 fuse.h 파일에 저장된 퓨즈세팅 사용
 ; CUSTOM_FUSE 2 SD 카드의 config.ini 파일로 부터 퓨즈 세팅 읽어옴
   -D CUSTOM_FUSE=2
-; DEBUG_LV 0 디버그 모드 끔, 메모리 확보를 위해 끄는 것을 권장합니다.
-; DEBUG_LV 1 정의된 모든 동작을 모니터링,
+; DEBUG_LV 0 디버그 모드 끔, 메모리 확보를 위해 끄는 것을 권장합니다
+; DEBUG_LV 1 정의된 모든 동작을 모니터링
 ; DEBUG_LV 2 타겟 IC 식별과 SD 카드 퓨즈 세팅 동작 위주
   -D DEBUG_LV=0
   -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
@@ -61,7 +60,18 @@ build_flags =
 
 ### `fuse.h` 파일을 사용한 CUSTOM_FUSE 설정
 
-fuse.h 를 사용한 방법은 메모리를 더 적게 사용하지만 장치를 매번 다시 컴파일 해줘야하는 단점이 있습니다.
+`platformio.ini` 의 내용을 다음과 같이 수정 한 후 AVR Programmer 에 업로드합니다.
+```c
+// File : platformio.ini
+// @PlatformIO
+
+build_flags =
+  -D CUSTOM_FUSE=1
+  -D DEBUG_LV=0
+  -D SERIAL_DISABLE=true
+```
+
+`fuse.h` 를 사용한 방법은 메모리를 더 적게 사용하지만 장치를 매번 다시 컴파일 해줘야하는 단점이 있습니다.
 
 ```c
 // File : src/fuse.h
@@ -78,21 +88,44 @@ const byte lock_bits = 0xFF;
 #endif
 ```
 
+`setting.h` 에 본인이 사용할 IC 를 정의합니다.
 ```c
-// File : src/main.cpp
-// platformio.ini 에서 정의하였다면 하지 않아도 됨
-#define CUSTOM_FUSE true
-#define ATmega32U4
+// File : src/setting.h
+#if CUSTOM_FUSE == 1
+#define ATmega32U4  // 커스텀 퓨즈세팅을 사용할 IC 를 정의합니다.
+#include "fuse.h"
+byte custom_fuses[5] = {
+    low_fuses,
+    high_fuses,
+    extended_fuses,
+    lock_bits,
+};
+#elif CUSTOM_FUSE == 2
+String AVR_CORE = "";
+byte custom_fuses_sd[5];
+#endif
+
 ```
 
 ### SD 카드의 `config.ini` 파일을 사용한 CUSTOM_FUSE 설정
 
 SD 에 저장된 설정값을 사용하는 방법은 메모리를 조금 더 사용합니다.  
-장치의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어주기만 하면 되기 때문에 좀 더 편리합니다.  
+AVR Programmer의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어주기만 하면 되기 때문에 좀 더 편리합니다.  
 단점으로 `DEBUG_LV 1` 과 함께 사용시 시스템 메모리가 2KB 이하인 IC는 메모리 부족으로 IC 가 리셋 될수 있습니다.  
 따라서 CUSTOM FUSE 설정에 SD 카드 모드 사용시 `DEBUG_LV 0` 또는 `DEBUG_LV 2` 로 설정해야 합니다.
 
-먼저 다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
+먼저 `platformio.ini` 의 내용을 다음과 같이 수정하여 AVR Programmer 에 업로드합니다
+```c
+// File : platformio.ini
+// @PlatformIO
+
+build_flags =
+  -D CUSTOM_FUSE=2
+  -D DEBUG_LV=0
+  -D SERIAL_DISABLE=true
+```
+
+그 다음 SD 카드에 다음과 같이 `config.ini` 파일을 생성합니다.  
 <img src="PCB/img/4.png" width="80%"/>
 
 `config.ini` 파일 내용은 다음과 같은 양식으로 작성합니다.
@@ -101,7 +134,7 @@ SD 에 저장된 설정값을 사용하는 방법은 메모리를 조금 더 사
 ATmega328P:FFDAFDFF
 ```
 
-':' 를 구분 자로 사용하며 앞쪽에는 IC 의 이름 뒷 쪽에는 Fuse 설정을 적습니다.  
+':' 를 구분 자로 사용하며 앞 쪽에는 IC 의 이름, 뒷 쪽에는 Fuse 설정을 적습니다.  
 Fuse 의 순서는 왼쪽 부터 Low/High/Extended/Lockbits 입니다.
 
 ## Available IC Table
