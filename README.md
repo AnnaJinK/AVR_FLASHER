@@ -68,7 +68,7 @@ build_flags =
 build_flags =
   -D CUSTOM_FUSE=1
   -D DEBUG_LV=0
-  -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
+  -D SERIAL_DISABLE=true
 ```
 
 fuse.h 를 사용한 방법은 메모리를 더 적게 사용하지만 장치를 매번 다시 컴파일 해줘야하는 단점이 있습니다.
@@ -110,7 +110,7 @@ AVR_FLASHER의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어�
 build_flags =
   -D CUSTOM_FUSE=2
   -D DEBUG_LV=0
-  -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
+  -D SERIAL_DISABLE=true
 ```
 
 그 다음 SD 카드에 다음과 같이 `config.ini` 파일을 생성합니다.  
