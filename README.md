@@ -1,6 +1,6 @@
 ## What is this?
 
-<img src="PCB/img/1.png" width="60%"/>
+<img src="PCB/img/1.png" width="80%"/>
 
 SD 카드에 저장된 펌웨어를 타겟 AVR 장치로 플래싱하는 Standalone AVR Programmer 입니다.  
 이 장치는 PC 가 필요없으며 간편하게 버튼 클릭만으로 타겟 장치의 IC 를 판별하여 펌웨어를 쓸수 있습니다.  
