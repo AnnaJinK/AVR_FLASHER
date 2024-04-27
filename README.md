@@ -12,7 +12,7 @@ SD 카드에 저장된 펌웨어를 타겟 AVR 장치로 플래싱하는 Standal
 
 빌드된 펌웨어 파일 `firmaware.hex` 을 SD 카드에 옮겨준 후 장치에 삽입하고 버튼 만 누르면 됩니다.  
 PlatformIO 에서 빌드된 펌웨어는 `firmaware.hex` 이름으로 `.pio/build` 폴더에 생성됩니다.  
-ArduinoIDE 를 사용하는 경우 `Ctrl + Alt + S` 를 눌러 컴파일된 바이너리 파일 생성 후 `firmaware.hex` 로 이름을 바꿔서 사용하면 됩니다.
+ArduinoIDE 를 사용하는 경우 `Ctrl + Alt + S` 로 컴파일된 바이너리 파일 생성 후 `firmaware.hex` 로 이름을 바꿔서 사용하면 됩니다.
 
 ### Inside
 
