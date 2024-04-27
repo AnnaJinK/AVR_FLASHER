@@ -29,18 +29,18 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 
 회로도와 부품 배치 데이터, 케이스 3D 모델, 거버파일은 PCB 폴더에 있습니다.
 
-### Video Link
+### Video
 
 [![Video](https://img.youtube.com/vi/CiSJQsz9dUg/0.jpg)](https://youtu.be/CiSJQsz9dUg)
 
-### CUSTOM FUSE 설정하기
+## CUSTOM FUSE 설정하기
 
 **<u>이 기능은 사용시 주의가 필요합니다.</u>**  
 **CUSTOM FUSE 는 잘못 사용하면 IC 를 더이상 사용할 수 없는 상태가 될 수 있습니다.**  
 퓨즈 설정에 익숙하지 않다면 [퓨즈 계산기](https://www.engbedded.com/fusecalc/) 를 이용하는 것이 좋습니다.
 
 `platformio.ini` 애서 CUSTOM_FUSE 활성화 방법입니다.  
-`ArduinoIDE` 를 사용하는 경우 `#define` 으로 스케치 상단에 정의합니다.   
+`ArduinoIDE` 를 사용하는 경우 `#define` 으로 스케치 상단에 정의합니다.  
 `CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입니다.
 
 ```c
@@ -104,7 +104,7 @@ ATmega328P:FFDAFDFF
 ':' 를 구분 자로 사용하며 앞쪽에는 IC 의 이름 뒷 쪽에는 Fuse 설정을 적습니다.  
 Fuse 의 순서는 왼쪽 부터 Low/High/Extended/Lockbits 입니다.
 
-### Available IC Table
+## Available IC Table
 
 ```c
 // Atmega 칩들의 시그니처 코드입니다. 이 데이터들을 기준으로 타겟 칩을 인식합니다.
