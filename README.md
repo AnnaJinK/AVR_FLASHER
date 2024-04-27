@@ -93,7 +93,7 @@ SD 에 저장된 설정값을 사용하는 방법은 메모리를 조금 더 사
 따라서 CUSTOM FUSE 설정에 SD 카드 모드 사용시 `DEBUG_LV 0` 또는 `DEBUG_LV 2` 로 설정해야 합니다.
 
 먼저 다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
-<img src="PCB/img/4.png" width="50%"/>
+<img src="PCB/img/4.png" width="80%"/>
 
 `config.ini` 파일 내용은 다음과 같이 작성합니다.
 
