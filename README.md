@@ -122,7 +122,7 @@ build_flags =
 ATmega328P:FFDAFDFF
 ```
 
-':' 를 구분 자로 사용하며 앞쪽에는 IC 의 이름 뒷 쪽에는 Fuse 설정을 적습니다.  
+':' 를 구분 자로 사용하며 앞 쪽에는 IC 의 이름, 뒷 쪽에는 Fuse 설정을 적습니다.  
 Fuse 의 순서는 왼쪽 부터 Low/High/Extended/Lockbits 입니다.
 
 ## Available IC Table
