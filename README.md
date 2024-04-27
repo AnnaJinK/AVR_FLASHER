@@ -66,13 +66,7 @@ build_flags =
 // @PlatformIO
 
 build_flags =
-; CUSTOM_FUSE 0 타겟 장치의 기본 세팅값 사용
-; CUSTOM_FUSE 1 fuse.h 파일에 저장된 퓨즈세팅 사용
-; CUSTOM_FUSE 2 SD 카드의 config.ini 파일로 부터 퓨즈 세팅 읽어옴
   -D CUSTOM_FUSE=1
-; DEBUG_LV 0 디버그 모드 끔, 메모리 확보를 위해 끄는 것을 권장합니다
-; DEBUG_LV 1 정의된 모든 동작을 모니터링
-; DEBUG_LV 2 타겟 IC 식별과 SD 카드 퓨즈 세팅 동작 위주
   -D DEBUG_LV=0
   -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
 ```
@@ -114,13 +108,7 @@ AVR_FLASHER의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어�
 // @PlatformIO
 
 build_flags =
-; CUSTOM_FUSE 0 타겟 장치의 기본 세팅값 사용
-; CUSTOM_FUSE 1 fuse.h 파일에 저장된 퓨즈세팅 사용
-; CUSTOM_FUSE 2 SD 카드의 config.ini 파일로 부터 퓨즈 세팅 읽어옴
   -D CUSTOM_FUSE=2
-; DEBUG_LV 0 디버그 모드 끔, 메모리 확보를 위해 끄는 것을 권장합니다
-; DEBUG_LV 1 정의된 모든 동작을 모니터링
-; DEBUG_LV 2 타겟 IC 식별과 SD 카드 퓨즈 세팅 동작 위주
   -D DEBUG_LV=0
   -D SERIAL_DISABLE=false ; 시리얼 통신 활성화
 ```
