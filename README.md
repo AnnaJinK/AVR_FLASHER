@@ -47,7 +47,7 @@ SD 카드를 사용하는 `CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입
 // @PlatformIO
 
 build_flags =
-; CUSTOM_FUSE 0 타겟 장치의 기본 세팅값 사용
+; CUSTOM_FUSE 0 CUSTOM_FUSE 사용안함, 타겟 장치의 기본 세팅값 사용
 ; CUSTOM_FUSE 1 fuse.h 파일에 저장된 퓨즈세팅 사용
 ; CUSTOM_FUSE 2 SD 카드의 config.ini 파일로 부터 퓨즈 세팅 읽어옴
   -D CUSTOM_FUSE=2
