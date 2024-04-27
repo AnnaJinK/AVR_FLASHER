@@ -33,9 +33,14 @@ USB C 포트는 시리얼 통신을 지원하며, 아두이노 부트로더 내�
 
 [![Video](https://img.youtube.com/vi/CiSJQsz9dUg/0.jpg)](https://youtu.be/CiSJQsz9dUg)
 
-### CUSTOM FUSE
+### CUSTOM FUSE 설정하기
 
-CUSTOM_FUSE 활성화  
+**<u>이 기능은 사용시 주의가 필요합니다.</u>**  
+**CUSTOM FUSE 는 잘못 사용하면 IC 를 더이상 사용할 수 없는 상태가 될 수 있습니다.**  
+퓨즈 설정에 익숙하지 않다면 [퓨즈 계산기](https://www.engbedded.com/fusecalc/) 를 이용하는 것이 좋습니다.
+
+`platformio.ini` 애서 CUSTOM_FUSE 활성화 방법입니다.  
+`ArduinoIDE` 를 사용하는 경우 `#define` 으로 스케치 상단에 정의합니다.   
 `CUSTOM_FUSE = 2`, `DEBUG_LV = 0` 가 기본 설정입니다.
 
 ```c
@@ -55,6 +60,8 @@ build_flags =
 ```
 
 ### `fuse.h` 파일을 사용한 CUSTOM_FUSE 설정
+
+fuse.h 를 사용한 방법은 메모리를 더 적게 사용하지만 장치를 매번 다시 컴파일 해줘야하는 단점이 있습니다.
 
 ```c
 // File : src/fuse.h
@@ -78,17 +85,24 @@ const byte lock_bits = 0xFF;
 #define ATmega32U4
 ```
 
-### SD 카드의`config.ini` 파일을 사용한 CUSTOM_FUSE 설정
+### SD 카드의 `config.ini` 파일을 사용한 CUSTOM_FUSE 설정
 
-다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
-<img src="PCB/img/4.png" width="50%"/>  
-파일 내용음 다음과 같습니다.  
-':' 를 구분 자로 사용하며 앞쪽에는 IC 의 이름 뒷 쪽에는 Fuse 설정을 적습니다.  
-Fuse 의 순서는 왼쪽 부터 Low/High/Extended/Lockbits 입니다.
+SD 에 저장된 설정값을 사용하는 방법은 메모리를 아주 조금 더 사용하합니다.  
+하지만 장치의 펌웨어 변경없이 원하는 Fuse 값을 SD 카드에 넣어주기만 하면 되기 때문에 좀 더 편리합니다.  
+단점으로 `DEBUG_LV 1` 과 함께 사용시 시스템 메모리가 2KB 이하인 IC는 메모리 부족으로 IC 가 리셋 될수 있습니다.  
+따라서 CUSTOM FUSE 설정에 SD 카드 모드 사용시 `DEBUG_LV 0` 또는 `DEBUG_LV 2` 로 설정해야 합니다.
+
+먼저 다음과 같이 SD 에 `config.ini` 파일을 생성합니다.  
+<img src="PCB/img/4.png" width="50%"/>
+
+`config.ini` 파일 내용은 다음과 같이 작성합니다.
 
 ```
 ATmega328P:FFDAFDFF
 ```
+
+':' 를 구분 자로 사용하며 앞쪽에는 IC 의 이름 뒷 쪽에는 Fuse 설정을 적습니다.  
+Fuse 의 순서는 왼쪽 부터 Low/High/Extended/Lockbits 입니다.
 
 ### Available IC Table
 
